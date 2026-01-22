@@ -13,15 +13,15 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb; 
 
+    private int score; 
+
     [SerializeField] private float speed = 5f; 
     [SerializeField] private float jumpStrength = 100f; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
-        movementX = 0f; 
-        movementY = 0f; 
-
+        score = 0;
         rb = GetComponent<Rigidbody2D>(); 
     }
 
@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
     private void OnMove(InputValue value)
     {
         Vector2 v = value.Get<Vector2>(); 
-
         movementX = v.x; 
         movementY = v.y; 
     }
@@ -53,6 +52,16 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true; 
+        }
+    }
+
+    private void OnTriggerEnter2D (Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Coin"))
+        {
+            collision.gameObject.SetActive(false); 
+            score++; 
+            Debug.Log($"Score: {score}");
         }
     }
 }
