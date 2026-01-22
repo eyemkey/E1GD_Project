@@ -60,17 +60,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "down",
-                    "id": "d726480a-d873-4fe5-8d73-3d03517a8f05",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "left",
                     "id": "f66a8e1d-6929-4a36-b4dc-7fc7f58290cc",
                     "path": "<Keyboard>/a",
@@ -85,6 +74,39 @@
                     "name": "right",
                     "id": "40c9a074-52e9-4ac2-a59d-64cc63553642",
                     "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "676d628a-afae-4f52-998a-f9ae3a4bbda0",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "896390c2-a859-4a9b-91a1-dd838e639f6f",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "797898c9-7b60-47e8-9a9a-1fa6c820d80f",
+                    "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
