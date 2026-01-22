@@ -627,6 +627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   speed: 5
   jumpStrength: 300
+  dashStrength: 1000
 --- !u!114 &2092982433
 MonoBehaviour:
   m_ObjectHideFlags: 0
