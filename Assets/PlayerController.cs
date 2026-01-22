@@ -29,12 +29,6 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(movementX * speed, rb.linearVelocity.y);  
-
-        if(movementY > 0 && isGrounded)
-        {
-            rb.AddForce(new Vector2(0, jumpStrength)); 
-            isGrounded = false; 
-        }
     }
 
     private void OnMove(InputValue value)
@@ -43,6 +37,15 @@ public class PlayerController : MonoBehaviour
 
         movementX = v.x; 
         movementY = v.y; 
+    }
+
+    private void OnJump()
+    {
+        if(isGrounded)
+        {
+            rb.AddForce(new Vector2(0, jumpStrength)); 
+            isGrounded = false; 
+        }
     }
 
     private void OnCollisionEnter2D (Collision2D collision)
