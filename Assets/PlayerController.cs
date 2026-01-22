@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private float movementY;
 
     private bool isGrounded;  
+    private bool hasDoubleJumped; 
+
 
     private Rigidbody2D rb; 
 
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         score = 0;
+        hasDoubleJumped = false; 
         rb = GetComponent<Rigidbody2D>(); 
     }
 
@@ -29,6 +32,12 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(movementX * speed, rb.linearVelocity.y);  
+
+        if(hasDoubleJumped && rb.linearVelocity.y < 0)
+        {
+            hasDoubleJumped = false; 
+            Jump(); 
+        }
     }
 
     private void OnMove(InputValue value)
@@ -42,8 +51,10 @@ public class PlayerController : MonoBehaviour
     {
         if(isGrounded)
         {
-            rb.AddForce(new Vector2(0, jumpStrength)); 
-            isGrounded = false; 
+            Jump(); 
+        } else
+        {
+            hasDoubleJumped = true; 
         }
     }
 
@@ -63,5 +74,11 @@ public class PlayerController : MonoBehaviour
             score++; 
             Debug.Log($"Score: {score}");
         }
+    }
+
+    private void Jump()
+    {
+        rb.AddForce(new Vector2(0, jumpStrength)); 
+        isGrounded = false; 
     }
 }
