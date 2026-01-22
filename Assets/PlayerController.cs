@@ -7,7 +7,9 @@ public class PlayerController : MonoBehaviour
 {
 
     private float movementX; 
-    private float movementY; 
+    private float movementY;
+
+    private bool isGrounded;  
 
     private Rigidbody2D rb; 
 
@@ -28,9 +30,10 @@ public class PlayerController : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(movementX * speed, rb.linearVelocity.y);  
 
-        if(movementY > 0)
+        if(movementY > 0 && isGrounded)
         {
             rb.AddForce(new Vector2(0, jumpStrength)); 
+            isGrounded = false; 
         }
     }
 
@@ -40,5 +43,13 @@ public class PlayerController : MonoBehaviour
 
         movementX = v.x; 
         movementY = v.y; 
+    }
+
+    private void OnCollisionEnter2D (Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true; 
+        }
     }
 }
