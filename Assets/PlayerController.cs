@@ -9,25 +9,29 @@ public class PlayerController : MonoBehaviour
     private float movementX; 
     private float movementY; 
 
-    [SerializeField]
-    private float speed = 5f; 
+    private Rigidbody2D rb; 
+
+    [SerializeField] private float speed = 5f; 
+    [SerializeField] private float jumpStrength = 100f; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
         movementX = 0f; 
         movementY = 0f; 
+
+        rb = GetComponent<Rigidbody2D>(); 
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        float dx = movementX * speed * Time.deltaTime; 
-        float dy = movementY * speed * Time.deltaTime; 
+        rb.linearVelocity = new Vector2(movementX * speed, rb.linearVelocity.y);  
 
-        Vector2 dv = new Vector2(dx, dy); 
-
-        transform.Translate(dv); 
+        if(movementY > 0)
+        {
+            rb.AddForce(new Vector2(0, jumpStrength)); 
+        }
     }
 
     private void OnMove(InputValue value)
