@@ -15,8 +15,12 @@ public class PlayerController : MonoBehaviour
 
 
     private Rigidbody2D rb; 
+    private Animator animator;
+    private SpriteRenderer spriteRenderer; 
 
     private int score; 
+    private int dashFrameCount;
+    private bool isDashing; 
 
     [SerializeField] private float speed = 5f; 
     [SerializeField] private float jumpStrength = 300f; 
@@ -29,19 +33,56 @@ public class PlayerController : MonoBehaviour
         hasClickedDoubleJump = false; 
         hasDoubleJumped = false; 
         rb = GetComponent<Rigidbody2D>(); 
+        animator = GetComponent<Animator>(); 
+        spriteRenderer = GetComponent<SpriteRenderer>(); 
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(movementX * speed, rb.linearVelocity.y);  
-        speed = 5f;
+        if(!isDashing) speed = 5f;
+
+        if(rb.linearVelocity.y < 0)
+        {
+            animator.SetBool("isJumping", false); 
+            animator.SetBool("isFalling", true); 
+        } else if(rb.linearVelocity.y > 0)
+        {
+            animator.SetBool("isJumping", true); 
+            animator.SetBool("isFalling", false); 
+        } else
+        {
+            animator.SetBool("isJumping", false); 
+            animator.SetBool("isFalling", false); 
+        }
+
+        if (isDashing)
+        {
+            dashFrameCount++; 
+            if(dashFrameCount == 5)
+            {
+                isDashing = false; 
+                dashFrameCount = 0; 
+            }
+        }
 
         if(hasClickedDoubleJump && !hasDoubleJumped && rb.linearVelocity.y < 0)
         {
             Jump(); 
             hasDoubleJumped = true;
         }
+
+        if(!Mathf.Approximately(movementX, 0f))
+        {
+            spriteRenderer.flipX = movementX < 0; 
+            animator.SetBool("isRunning", true); 
+        }else
+        {   
+            animator.SetBool("isRunning", false); 
+        }
+
+
     }
 
     private void OnMove(InputValue value)
@@ -63,7 +104,12 @@ public class PlayerController : MonoBehaviour
     }
     private void OnDash()
     {
-        speed = 250f; 
+        if (!isDashing)
+        {
+            speed = 20f; 
+            isDashing = true; 
+            dashFrameCount = 0; 
+        }
     }
 
     private void OnCollisionEnter2D (Collision2D collision)
@@ -73,6 +119,9 @@ public class PlayerController : MonoBehaviour
             isGrounded = true; 
             hasClickedDoubleJump = false; 
             hasDoubleJumped = false; 
+
+            // animator.SetBool("isJumping", false); 
+            // animator.SetBool("isFalling", false); 
         }
     }
 
@@ -97,5 +146,6 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         rb.AddForce(new Vector2(0, jumpStrength)); 
+        // animator.SetBool("isJumping", true); 
     }
 }
