@@ -25,13 +25,13 @@ public class GameManager : MonoBehaviour
 
     public void SetMusicVolume()
     {
-        float volume = Mathf.Log10(Mathf.max(musicSlider.value, 0.00001f)) * 20f;
+        float volume = Mathf.Log10(Mathf.Max(musicSlider.value, 0.00001f)) * 20f;
         mixer.SetFloat(exposedMusicParamName, volume);
     }
 
     public void SetSFXVolume()
     {
-        float volume = Mathf.Log10(Mathf.max(sfxSlider.value, 0.00001f)) * 20f; 
+        float volume = Mathf.Log10(Mathf.Max(sfxSlider.value, 0.00001f)) * 20f; 
         mixer.SetFloat(exposedSFXParamName, volume); 
         Debug.Log(volume); 
     }
