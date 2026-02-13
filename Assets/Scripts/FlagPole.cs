@@ -27,9 +27,10 @@ public class FlagPole : MonoBehaviour
                 interp = 1.0f; 
             }
 
-            flag.transform.position = new Vector3 (flag.transform.position.x, 
-                Mathf.Lerp(startPoint, endPoint, interp),
-                flag.transform.position.z);
+            flag.transform.position = 
+                new Vector3(flag.transform.position.x, 
+                            Mathf.Lerp(startPoint, endPoint, interp),
+                            flag.transform.position.z);
             yield return null;
         }
         sceneLoader.LoadScene(); 

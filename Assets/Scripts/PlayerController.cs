@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 
 public class PlayerController : MonoBehaviour
@@ -29,6 +30,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip jumpClip;
 
     [SerializeField] private GameManager gameManager;
+
+    public UnityEvent playerDeath; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
@@ -145,6 +148,10 @@ public class PlayerController : MonoBehaviour
             score++; 
             gameManager.UpdateScore(score); 
         }
+        else if(collision.gameObject.CompareTag("Spike"))
+        {
+            playerDeath.Invoke(); 
+        }
     }
 
     private void Jump()
@@ -154,3 +161,5 @@ public class PlayerController : MonoBehaviour
         // animator.SetBool("isJumping", true); 
     }
 }
+
+
